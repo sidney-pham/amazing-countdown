@@ -11,6 +11,7 @@
           flex-direction: column;
           align-items: center;
           font-family: 'Helvetica Neue';
+          color: white;
       }
 
       html, body {
@@ -19,10 +20,13 @@
         margin: 0; padding: 0;
       }
 
-      #countdown {
-          color: white;
-          font-size: 18vw;
-          font-weight: 100;
+      #countdown-content {
+        font-size: 18vw;
+        font-weight: 100;
+      }
+
+      #countdown-content h2 {
+          font-size: 5vw;
       }
     </style>
     <script>
@@ -68,7 +72,11 @@
     </script>
   </head>
   <body>
-    <p id="countdown"></p>
+    <article id="countdown-content">
+      <h2>Seconds until the 2017 HSC:</h2>
+      <p id="countdown"></p>
+    </article>
     <marquee style="color: white;">Ram says, "I am a software god!"</marquee>
+    <marquee style="color: white;">Credits: Ramanujan Kaniyur</marquee>
   </body>
 </html>
