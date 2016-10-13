@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Countdown</title>
+    <style>
+      body {
+          background-color: black;
+          display: flex;
+          justify-content: center;
+          text-align: center;
+          flex-direction: column;
+          align-items: center;
+          font-family: 'Helvetica Neue';
+      }
+
+      html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0; padding: 0;
+      }
+
+      #countdown {
+          color: white;
+          font-size: 18vw;
+          font-weight: 100;
+      }
+    </style>
+    <script>
+      var to = new Date();
+      to.setFullYear(2017);
+      to.setMonth(9);
+      to.setDate(13);
+
+      function setText(str) {
+        document.getElementById('countdown').textContent = str;
+      }
+
+      function tick() {
+        var t = to - Date.now();
+
+        if (t < 0) {
+          setText('Complete!');
+          return;
+        }
+
+        setText(Math.round(t/1000) + 's');
+
+        setTimeout(this.tick, 1000)
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        tick();
+        setInterval(() => {
+          document.body.style.backgroundColor = getRandomColor();
+        }, 10)
+      })
+
+      // http://stackoverflow.com/a/1484514
+      function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+    </script>
+  </head>
+  <body>
+    <p id="countdown"></p>
+    <marquee style="color: white;">Ram says, "I am a software god!"</marquee>
+  </body>
+</html>
