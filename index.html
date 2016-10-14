@@ -20,13 +20,17 @@
         margin: 0; padding: 0;
       }
 
-      #countdown-content {
+      #countdown-content :not(marquee) {
         font-size: 18vw;
         font-weight: 100;
       }
 
       #countdown-content h2 {
           font-size: 5vw;
+      }
+
+      #countdown {
+        margin: 0;
       }
     </style>
     <script>
@@ -52,13 +56,6 @@
         setTimeout(this.tick, 1000)
       }
 
-      document.addEventListener('DOMContentLoaded', function () {
-        tick();
-        setInterval(() => {
-          document.body.style.backgroundColor = getRandomColor();
-        }, 10)
-      })
-
       // http://stackoverflow.com/a/1484514
       function getRandomColor() {
         var letters = '0123456789ABCDEF';
@@ -69,14 +66,25 @@
         return color;
       }
 
+      document.addEventListener('DOMContentLoaded', function () {
+        tick();
+        setInterval(() => {
+          document.body.style.backgroundColor = getRandomColor();
+        }, 10)
+      })
     </script>
   </head>
   <body>
-    <article id="countdown-content">
-      <h2>Seconds until the 2017 HSC:</h2>
-      <p id="countdown"></p>
-    </article>
-    <marquee style="color: white;">Ram says, "I am a software god!"</marquee>
-    <marquee style="color: white;">Credits: Ramanujan Kaniyur</marquee>
+    <div style="display:table;">
+      <div style="display:table-cell;vertical-align:middle;">
+        <div style="margin-left:auto;margin-right:auto;" id="countdown-content">
+          <h2>Seconds until the 2017 HSC:</h2>
+          <p id="countdown"></p>
+
+          <marquee style="color: white;" behavior="alternate">Ram says, "I am a software god!"</marquee>
+          <marquee style="color: white;" behavior="alternate">Credits: Ramanujan Kaniyur</marquee>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
