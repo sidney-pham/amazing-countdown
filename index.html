@@ -34,30 +34,22 @@
         margin: 0;
       }
 
-      .lol {
+      #tickers {
         font-size: 20px;
         font-weight: 400;
       }
 
-      .lol:hover {
+      #tickers:hover {
         cursor: pointer;
       }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
-      var interval;
-      var slow = true;
-
-      var to = new Date();
-      to.setFullYear(2017);
-      to.setMonth(9);
-      to.setDate(13);
 
       function setText(str) {
         document.getElementById('countdown').textContent = str;
       }
 
-      function tick() {
+      function tick(to) {
         var t = to - Date.now();
 
         if (t < 0) {
@@ -67,34 +59,32 @@
 
         setText(Math.round(t/1000) + 's');
 
-        setTimeout(this.tick, 1000)
+        setTimeout(() => tick(to), 1000);
       }
 
-      // http://stackoverflow.com/a/1484514
       function getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++ ) {
-          color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
+        return "hsl(" + (Math.random() * 360) + ", 100%, 30%)";
       }
 
       document.addEventListener('DOMContentLoaded', function () {
-        tick();
-        interval = setInterval(() => {
-          document.body.style.backgroundColor = getRandomColor();
-        }, 1000)
-      })
+        var to = new Date();
+        to.setFullYear(2017, 9, 13);
+        to.setHours(0, 0, 0, 0);
 
-      $(document).ready(function() {
-        $(".lol").click(function() {
-          console.log("yeyeyeey");
-          slow = !slow;
-          clearInterval(interval);
-          interval = setInterval(() => {
-            document.body.style.backgroundColor = getRandomColor();
-          }, slow ? 1000 : 10)
+        var delay = 1000;
+        document.body.style.transition = "background-color 1s ease-in-out";
+
+        tick(to);
+        spaz();
+
+        function spaz() {
+          document.body.style.backgroundColor = getRandomColor();
+          setTimeout(spaz, delay);
+        }
+
+        document.getElementById("tickers").addEventListener("click", () => {
+          delay = delay == 10 ? 1000 : 10;
+          document.body.style.transition = delay == 10 ? null : "background-color 1s ease-in-out";
         });
       });
     </script>
@@ -106,7 +96,7 @@
           <h2>Seconds until the 2017 HSC:</h2>
           <p id="countdown"></p>
 
-          <div class="lol">
+          <div id="tickers">
             <marquee style="color: white;" behavior="alternate">Ram says, "I am a software god!"</marquee>
             <marquee style="color: white;" behavior="alternate">Credits: Ramanujan Kaniyur</marquee>
           </div>
